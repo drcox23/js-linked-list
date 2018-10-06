@@ -27,8 +27,8 @@ function linkedListGenerator() {
       tail = newNode;
       return tail;
     } else {
-      tail.next = newNode;
       newNode.previous = tail.value;
+      tail.next = newNode;
       tail = tail.next;
       // console.log("tail: ", tail);
       return tail;
@@ -56,7 +56,29 @@ function linkedListGenerator() {
     return thisNode;
   };
 
-  remove = number => {};
+  remove = number => {
+    let previousNode = get(number - 1);
+    let currentNode = get(number);
+
+    // console.log("prev: ", previousNode);
+    // console.log("current: ", currentNode);
+
+    if (number < 0 || !head || !currentNode) {
+      return false;
+    } else if (!previousNode) {
+      head = head.next;
+    } else if (!currentNode.next) {
+      tail = previousNode;
+      tail.next = null;
+    } else {
+      console.log("***", previousNode);
+      console.log("current: ", currentNode);
+      console.log("next: ", currentNode.next);
+      previousNode.next = currentNode.next;
+      currentNode.next.next = previousNode;
+      console.log("newPrev: ", previousNode);
+    }
+  };
 
   insert = (value, number) => {};
 
